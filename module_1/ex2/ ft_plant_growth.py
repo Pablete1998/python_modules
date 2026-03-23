@@ -7,7 +7,7 @@ class Plant:
         self.age = age
 
     def grow(self):
-        self.height += 200.9
+        self.height += 0.8
 
     def age_one_day(self):
         self.age += 1
