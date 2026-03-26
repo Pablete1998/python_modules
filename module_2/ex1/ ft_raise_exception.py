@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-def input_temperature(temp_str: str) -> int:
+def input_temperature(temp_str) -> int:
     temp = int(temp_str)
 
     if temp < 0:
@@ -15,7 +15,7 @@ def test_temperature() -> None:
     print("=== Garden Temperature Checker ===")
     print("")
 
-    temp = "25"
+    temp: str | int = "25"
     print(f"input data is '{temp}'")
     temp = input_temperature(temp)
     print(f"temperature is now {temp} ºC")
