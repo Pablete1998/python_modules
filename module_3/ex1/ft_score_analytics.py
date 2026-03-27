@@ -1,28 +1,44 @@
 #!/usr/bin/env python3
 
+
 import sys
-
-class InvalidError():
-        def __init__(self, message="invalid parameter: "):
-            print(f"{message}")
-
-
-def checker_chachi(argumen):
-    print("patata")
 
 
 def score_analytics():
-    arg = sys.argv[1:]
-    count = len(arg) - 1
-    if count == 0:
-        print(f"No scores provided. Usage: python{sys.version_info.major}", end=" ")
-        for e in arg:
-            print(f"{e}", end=" ")
+    argums = sys.argv[1:]
+    valid_scores = []
+    invalid_found = False
+    if len(argums) == 0:
+        print(
+            f"No scores provided. Usage: "
+            f"python{sys.version_info.major} "
+            f"{sys.argv[0]}", end=" "
+            )
         print("<score1> <score2> ...")
         return
-    else:
-        for e in arg:
-            checker_chachi(e)
+    for a in argums:
+        try:
+            score = (int(a))
+            valid_scores.append(score)
+        except ValueError:
+            print(f"Invalid parameter: '{a}'")
+            invalid_found = True
+    if invalid_found and len(valid_scores) == 0:
+        print(
+            f"No scores provided. Usage: "
+            f"python{sys.version_info.major}"
+            f"{sys.argv[0]}", end=" "
+            )
+        print("<score1> <score2> ...")
+        return
+
+    print(f"Scores processed: {valid_scores}")
+    print(f"Total players: {len(valid_scores)}")
+    print(f"Total score: {sum(valid_scores)}")
+    print(f"Average score: {round(sum(valid_scores) / len(valid_scores), 1)}")
+    print(f"High score: {max(valid_scores)}")
+    print(f"Low score: {min(valid_scores)}")
+    print(f"Score range: {max(valid_scores) - min(valid_scores)}")
 
 
 if __name__ == "__main__":
