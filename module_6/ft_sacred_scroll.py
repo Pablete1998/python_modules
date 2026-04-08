@@ -5,7 +5,8 @@ import alchemy.elements
 
 
 def safe_call(func, label: str) -> None:
-    """Call a function and catch AttributeError, printing the correct message."""
+    """Call a function and catch AttributeError,
+    printing the correct message."""
     try:
         result = func()
         print(f"{label}: {result}")
@@ -18,8 +19,12 @@ def main() -> None:
 
     print("Testing direct module access:")
     print(f"alchemy.elements.create_fire(): {alchemy.elements.create_fire()}")
-    print(f"alchemy.elements.create_water(): {alchemy.elements.create_water()}")
-    print(f"alchemy.elements.create_earth(): {alchemy.elements.create_earth()}")
+    print(
+        "alchemy.elements.create_water(): "
+        f"{alchemy.elements.create_water()}")
+    print(
+        f"alchemy.elements.create_earth():"
+        f"{alchemy.elements.create_earth()}")
     print(f"alchemy.elements.create_air(): {alchemy.elements.create_air()}")
 
     print("Testing package-level access (controlled by __init__.py):")
