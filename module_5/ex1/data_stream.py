@@ -3,7 +3,12 @@
 from __future__ import annotations
 
 from typing import Any, List, Dict
-from data_processor import (
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ex0'))
+
+from data_processor import (  # noqa: E402
     DataProcessor,
     NumericProcessor,
     TextProcessor,
@@ -64,7 +69,7 @@ class DataStream:
             return
 
         for proc in self._processors:
-            name = proc.__class__.__name__
+            name = proc.__class__.__name__.replace("Processor", " Processor")
             total = self._stats_total[proc]
             remaining = self._stats_remaining[proc]
             print(
@@ -74,7 +79,7 @@ class DataStream:
 
 
 # ---------------------------------------------------------
-# Test scenario (as required by the PDF)
+# Test scenario
 # ---------------------------------------------------------
 
 def ft_main() -> None:
@@ -83,8 +88,8 @@ def ft_main() -> None:
 
     ds = DataStream()
     ds.print_processors_stats()
+    print()
 
-    # Register Numeric Processor
     print("Registering Numeric Processor")
     num = NumericProcessor()
     ds.register_processor(num)
@@ -106,8 +111,8 @@ def ft_main() -> None:
     print("Send first batch of data on stream:", batch)
     ds.process_stream(batch)
     ds.print_processors_stats()
+    print()
 
-    # Register other processors
     print("Registering other data processors")
     text = TextProcessor()
     log = LogProcessor()
@@ -117,13 +122,13 @@ def ft_main() -> None:
     print("Send the same batch again")
     ds.process_stream(batch)
     ds.print_processors_stats()
+    print()
 
     print(
         "Consume some elements from the data processors: "
         "Numeric 3, Text 2, Log 1"
     )
 
-    # Consume outputs
     for _ in range(3):
         try:
             num.output()

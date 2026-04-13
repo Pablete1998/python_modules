@@ -2,59 +2,46 @@
 
 from __future__ import annotations
 
-from typing import List, Tuple, Protocol
-from data_processor import (
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ex0'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ex1'))
+
+from typing import List, Tuple, Protocol  # noqa: E402
+from data_processor import (  # noqa: E402
     NumericProcessor,
     TextProcessor,
     LogProcessor,
 )
-from data_stream import DataStream
+from data_stream import DataStream  # noqa: E402
 
-
-# ---------------------------------------------------------
-# Export Plugin Protocol
-# ---------------------------------------------------------
 
 class ExportPlugin(Protocol):
     def process_output(self, data: List[Tuple[int, str]]) -> None:
         """
         Receives a list of (rank, string) tuples.
         """
-        ...
 
-
-# ---------------------------------------------------------
-# CSV Export Plugin
-# ---------------------------------------------------------
 
 class CSVExportPlugin:
     def process_output(self, data: List[Tuple[int, str]]) -> None:
-        # Convert only the string values into CSV
         values = [item[1] for item in data]
         csv_line = ",".join(values)
         print("CSV Output:")
         print(csv_line)
 
 
-# ---------------------------------------------------------
-# JSON Export Plugin
-# ---------------------------------------------------------
-
 class JSONExportPlugin:
     def process_output(self, data: List[Tuple[int, str]]) -> None:
-        # Convert to {"item_rank": "value", ...}
         json_items = []
         for rank, value in data:
             json_items.append(f'"item_{rank}": "{value}"')
 
-        json_str = "{ " + ", ".join(json_items) + " }"
+        json_str = "{" + ", ".join(json_items) + "}"
         print("JSON Output:")
         print(json_str)
 
-
-# ---------------------------------------------------------
-# Extend DataStream with output_pipeline
-# ---------------------------------------------------------
 
 class PipelineDataStream(DataStream):
     def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
@@ -76,18 +63,18 @@ class PipelineDataStream(DataStream):
                 plugin.process_output(collected)
 
 
-# ---------------------------------------------------------
-# Test scenario (as required by the PDF)
-# ---------------------------------------------------------
-
 def ft_main() -> None:
     print("=== Code Nexus - Data Pipeline ===")
+    print()
     print("Initialize Data Stream...")
+    print()
 
     ds = PipelineDataStream()
     ds.print_processors_stats()
+    print()
 
     print("Registering Processors")
+    print()
     num = NumericProcessor()
     text = TextProcessor()
     log = LogProcessor()
@@ -109,13 +96,17 @@ def ft_main() -> None:
     ]
 
     print("Send first batch of data on stream:", batch1)
+    print()
     ds.process_stream(batch1)
     ds.print_processors_stats()
+    print()
 
     print("Send 3 processed data from each processor to a CSV plugin:")
     csv_plugin = CSVExportPlugin()
     ds.output_pipeline(3, csv_plugin)
+    print()
     ds.print_processors_stats()
+    print()
 
     batch2 = [
         21,
@@ -130,12 +121,15 @@ def ft_main() -> None:
     ]
 
     print("Send another batch of data:", batch2)
+    print()
     ds.process_stream(batch2)
     ds.print_processors_stats()
+    print()
 
     print("Send 5 processed data from each processor to a JSON plugin:")
     json_plugin = JSONExportPlugin()
     ds.output_pipeline(5, json_plugin)
+    print()
     ds.print_processors_stats()
 
 
