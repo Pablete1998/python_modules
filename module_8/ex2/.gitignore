@@ -1,0 +1,7 @@
+# Secret configuration - NEVER commit this!
+.env
+
+# Python
+__pycache__/
+*.pyc
+.mypy_cache/

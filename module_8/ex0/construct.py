@@ -1,25 +1,27 @@
 import sys
 import os
 import site
- 
- 
+
+
 def is_virtual_env() -> bool:
     """Detect if we are running inside a virtual environment."""
-    return sys.prefix != sys.base_prefix or os.environ.get("VIRTUAL_ENV") is not None
- 
- 
+    prefix_changed = sys.prefix != sys.base_prefix
+    has_venv_var = os.environ.get("VIRTUAL_ENV") is not None
+    return prefix_changed or has_venv_var
+
+
 def get_venv_name() -> str:
     """Get the name of the active virtual environment."""
     venv_path = os.environ.get("VIRTUAL_ENV", sys.prefix)
     return os.path.basename(venv_path)
- 
- 
+
+
 def get_package_path() -> str:
     """Get the site-packages path for the current environment."""
     packages = site.getsitepackages()
     return packages[0] if packages else "Unknown"
- 
- 
+
+
 def show_outside_venv() -> None:
     """Display info and instructions when outside a virtual environment."""
     print("MATRIX STATUS: You're still plugged in")
@@ -36,14 +38,14 @@ def show_outside_venv() -> None:
     print("  matrix_env\\Scripts\\activate      # On Windows")
     print()
     print("Then run this program again.")
- 
- 
+
+
 def show_inside_venv() -> None:
     """Display info when inside a virtual environment."""
     venv_name = get_venv_name()
     venv_path = os.environ.get("VIRTUAL_ENV", sys.prefix)
     package_path = get_package_path()
- 
+
     print("MATRIX STATUS: Welcome to the construct")
     print()
     print(f"Current Python:      {sys.executable}")
@@ -57,15 +59,14 @@ def show_inside_venv() -> None:
     print("Package installation path:")
     print(f"  {package_path}")
 
- 
+
 def main() -> None:
     """Main entry point."""
     if is_virtual_env():
         show_inside_venv()
     else:
         show_outside_venv()
- 
- 
+
+
 if __name__ == "__main__":
     main()
- 

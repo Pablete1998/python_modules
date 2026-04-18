@@ -1,19 +1,20 @@
 [tool.poetry]
+package-mode = false
 name = "matrix-loading"
 version = "0.1.0"
 description = "Matrix data analysis - Exercise 1"
-authors = ["P.serranofndezmatinot@gmail.com>"]
- 
+authors = ["John Smith <john@example.com>"]
+
 [tool.poetry.dependencies]
 python = "^3.10"
 pandas = ">=2.0.0"
 numpy = ">=1.24.0"
 matplotlib = ">=3.7.0"
- 
+
 [tool.poetry.group.dev.dependencies]
 flake8 = ">=6.0.0"
 mypy = ">=1.0.0"
- 
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
