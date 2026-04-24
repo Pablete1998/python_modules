@@ -63,6 +63,6 @@ if __name__ == "__main__":
     print(*spell_transformer(spells))
 
     print("\nTesting mage stats...")
-    stats = mage_stats(mages) 
+    stats = mage_stats(mages)
     print(f"Max: {stats['max_power']} | Min: {stats['min_power']}"
           f" | Avg: {stats['avg_power']}")
