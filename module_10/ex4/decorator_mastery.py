@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 FuncMage Chronicles - Exercise 4: Master's Tower
 Create powerful decorators and class methods.

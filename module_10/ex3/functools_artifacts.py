@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 FuncMage Chronicles - Exercise 3: Ancient Library
 Explore the functools module's treasures.

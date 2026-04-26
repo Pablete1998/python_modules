@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 FuncMage Chronicles - Exercise 2: Memory Depths
 Understand lexical scoping and closures.
